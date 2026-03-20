@@ -1,0 +1,47 @@
+<div class="message-container chat-wrapper">
+    <div class="messages-content" #messageContainer>
+        @if(messages.length == 0){
+        <h1 style="text-align: center;"> Welcome to chat, how may i assist you?</h1>
+        }
+        @for(message of messages; track $index){
+        <div class="message-row" [ngClass]="{
+           'user-message': message.sender === 'user',
+           'bot-message': message.sender === 'bot'
+         }">
+
+            <div class="message">
+                <div class="message-header">
+                    <mat-icon class="icon">
+                        {{ message.sender === 'user' ? "person" : "adb" }}
+                    </mat-icon>
+
+                    <span class="time">
+                        {{ message.timestamp | date:'hh:mm a' }}
+                    </span>
+                </div>
+
+                <div class="message-text">
+                    {{ message.text }}
+                </div>
+            </div>
+
+        </div>
+        }
+        @if (isTyping) {
+        <img src="dots-loading.gif" class="typing-loader">
+        }
+    </div>
+    <form [formGroup]='chatForm' (ngSubmit)='submit()' class="chat-form">
+        <div class="form-input-area">
+            <input type="text" formControlName='userMessage' [disabled]='isTyping'
+                placeholder="Enter some words to begin...!">
+            <button type="button" class="mic" [class.listening]="isListening == true" [disabled]="isTyping"
+                (click)="speechToText()">
+                <mat-icon>mic</mat-icon>
+            </button>
+            <button type="submit" class="send-btn" [disabled]="chatForm.invalid || isTyping">
+                <mat-icon>send</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>

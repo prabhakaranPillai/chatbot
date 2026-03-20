@@ -1,0 +1,7 @@
+<header>
+  <mat-button-toggle-group class="nav-group" [(value)]="currentTab">
+    <mat-button-toggle value="chat" routerLink="chat">Chat</mat-button-toggle>
+    <mat-button-toggle value="dashboard" routerLink="/dashboard">dashboard</mat-button-toggle>
+  </mat-button-toggle-group>
+</header>
+<router-outlet></router-outlet>

@@ -1,0 +1,36 @@
+<div class="dashboard">
+    <header>
+        <h1>Analytics Dashboard
+            <mat-form-field>
+                <mat-select (selectionChange)="selectRange($event.value)" [(ngModel)]=selectedRange>
+                    <mat-option value="weekly">Week</mat-option>
+                    <mat-option value="monthly">Month</mat-option>
+                    <mat-option value="yearly">Year</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </h1>
+    </header>
+    <hr>
+
+    <div class="KPI-container">
+        @for(kpi of filteredKPIs; track $index) {
+        <div class="card">
+            <h3>{{kpi.title}}</h3>
+            <p>Current value: {{kpi.value}}</p>
+            <span [class.red]="kpi.percentage < 0" [class.green]="kpi.percentage > 0">
+                {{kpi.percentage}}% (Previous period value:{{kpi.previousPeriod }})
+            </span>
+        </div>
+        }
+    </div>
+
+    <!-- charts -->
+    <div class="charts">
+
+        <div id="line-chart">
+        </div>
+        <div id="pie-chart">
+        </div>
+    </div>
+
+</div>
